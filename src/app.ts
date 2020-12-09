@@ -1,11 +1,16 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app: Application = express();
-const port = process.env.PORT || 3000;
 
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-  res.send('Hello World!')
-  next();
-});
+mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}.org1k.mongodb.net/test`, { useUnifiedTopology: true, useNewUrlParser: true }, 
+  () => console.log('connected to db!')
+);
 
-app.listen(port, () => console.log(`Server started on port: ${port}`))
+// register the user
+app.use('/register', require('./routes/register'));
+
+app.listen(process.env.PORT || 3000, () => console.log('Server started'))
