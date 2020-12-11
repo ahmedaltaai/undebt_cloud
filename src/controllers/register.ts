@@ -20,7 +20,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
   try {
     const registerdUser = await user.save();
-    res.status(200).send({user: user._id});
+    res.status(201).send({user: user._id});
   } catch (err) {
     res.status(400).send(err);
   }
