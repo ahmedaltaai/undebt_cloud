@@ -20,5 +20,6 @@ app.use(express.json());
 
 // register the user
 app.use('/register', require('./routes/register'));
+app.use('/login', require('./routes/login'));
 
 app.listen(process.env.PORT || 3000, () => console.log('Server started'));
