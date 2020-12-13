@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../models/User';
-
+import jwt from 'jsonwebtoken';
 
 export const loginUser = async (req: Request, res: Response) => {
 
@@ -24,7 +24,14 @@ export const loginUser = async (req: Request, res: Response) => {
       if(!isMatch) {
         res.status(401).send(errorMsg)
       } else {
-        res.status(200).send('logging in')
+        const token = jwt.sign({
+          email: user.email,
+          userId: user._id
+        }, 
+        'secret',
+        {expiresIn: '1h'}
+        )
+        res.status(200).send({message: 'logging in', token: token})
       }
     })
     .catch(err => {
