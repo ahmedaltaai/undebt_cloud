@@ -3,7 +3,9 @@ import { Schema, model, Date, Document } from 'mongoose';
 export interface IUser extends Document {
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
+    lowercase: true
   },
   password: {
     type: String,
@@ -18,7 +20,9 @@ export interface IUser extends Document {
 const UserSchema: Schema = new Schema({
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
+    lowercase: true
   },
   password: {
     type: String,
