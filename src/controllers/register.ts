@@ -13,13 +13,13 @@ export const registerUser = async (req: Request, res: Response) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-  const user = new User({
+  const user = await new User({
     email: req.body.email,
     password: hashedPassword
   });
 
   try {
-    const registerdUser = await user.save();
+    await user.save();
     res.status(201).send({user: user._id});
   } catch (err) {
     res.status(400).send(err);

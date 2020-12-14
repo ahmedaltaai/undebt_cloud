@@ -28,7 +28,7 @@ export const loginUser = async (req: Request, res: Response) => {
           email: user.email,
           userId: user._id
         }, 
-        'secret',
+        `${process.env.TOKEN_SECRET}`,
         {expiresIn: '1h'}
         )
         res.status(200).send({message: 'logging in', token: token})
@@ -44,4 +44,3 @@ export const loginUser = async (req: Request, res: Response) => {
     res.status(500).send({error: err})
   });
 };
-

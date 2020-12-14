@@ -1,4 +1,4 @@
-import express, { Application, Request, Response, NextFunction, urlencoded } from 'express';
+import express, { Application } from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
@@ -8,11 +8,9 @@ dotenv.config();
 const app: Application = express();
 
 // connect to mongodb
-
-
 mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@undept.org1k.mongodb.net/undebt?retryWrites=true&w=majority`, 
-  { useUnifiedTopology: true, useNewUrlParser: true }, 
-  () => console.log('connected to db!')
+  { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex:true }, 
+  () => console.log('connected to db!') 
 );
 
 // body parser to json
